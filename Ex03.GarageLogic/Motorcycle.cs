@@ -50,9 +50,14 @@ namespace Ex03.GarageLogic
                 Enum.TryParse<eMotorcycleLicenseType>(i_ChildExtraProperties[k_LicenseTypeIndex], out m_LicenseType);
             bool parseEngineCapacity = int.TryParse(i_ChildExtraProperties[k_EngineCapacityIndex], out m_EngineCapacity);
 
-            if (!(parseLicenseType && parseEngineCapacity))
+            if (!parseLicenseType)
             {
-                throw new FormatException(string.Format("Invalid Input Format"));
+                throw new FormatException(string.Format("Error! License type format is not valid, expected int."));
+            }
+
+            if (!parseEngineCapacity)
+            {
+                throw new FormatException(string.Format("Error! Engine capacity format is not valid, expected int."));
             }
         }
 
