@@ -44,8 +44,8 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             return string.Format(
-                $@"Max energy amount: {r_MaxEnergyAmount}
-                Current energy amount: {m_CurrentEnergyAmount}");
+$@"Max energy amount: {r_MaxEnergyAmount}
+Current energy amount: {m_CurrentEnergyAmount}");
         }
     }
 }

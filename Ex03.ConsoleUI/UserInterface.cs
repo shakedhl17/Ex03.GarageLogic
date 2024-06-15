@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
@@ -292,9 +291,7 @@ namespace Ex03.ConsoleUI
                 }
             }
 
-            // get Owner
             Owner owner = getOwnerDetailsFromUser();
-            // Add to garage
             r_Garage.InsertTicketDetails(i_VehicleLicenseNumber, owner, newVehicle);
         }
 
@@ -434,7 +431,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("Please insert fuel amount:");
                 if (!float.TryParse(Console.ReadLine(), out float amount))
                 {
-                    throw new FormatException("Invalid Format Input!");
+                    throw new FormatException("Invalid Format Input! expected float input");
                 }
 
                 r_Garage.GetTicket(userLicenseNumber).Vehicle.AddEnergy(amount, fuelType);
@@ -536,7 +533,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("Please insert duration in minutes to charge:");
                 if (!float.TryParse(Console.ReadLine(), out float amount))
                 {
-                    throw new FormatException("Invalid Format Input!");
+                    throw new FormatException("Invalid Format Input! expected float input");
                 }
 
                 amount = amount / 60;
