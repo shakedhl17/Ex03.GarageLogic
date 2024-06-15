@@ -1,15 +1,13 @@
-﻿using System;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
     public abstract class EnergyContainer
     {
-        protected readonly float r_MaxEnergyAmount;
+        protected readonly float r_MaximumEnergyAmount;
         protected float m_CurrentEnergyAmount = 0;
 
         public EnergyContainer(float i_MaxEnergyAmount)
         {
-            r_MaxEnergyAmount = i_MaxEnergyAmount;
+            r_MaximumEnergyAmount = i_MaxEnergyAmount;
         }
 
         public float CurrentEnergyAmount
@@ -20,9 +18,9 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if (value < 0 || value > r_MaxEnergyAmount)
+                if (value < 0 || value > r_MaximumEnergyAmount)
                 {
-                    throw new ValueOutOfRangeException(0, r_MaxEnergyAmount, $"An error occured, the amount of energy should be between {0} to {r_MaxEnergyAmount}");
+                    throw new ValueOutOfRangeException(0, r_MaximumEnergyAmount, $"An error occured, the amount of energy should be between {0} to {r_MaximumEnergyAmount}");
                 }
                 else
                 {
@@ -35,7 +33,7 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return r_MaxEnergyAmount;
+                return r_MaximumEnergyAmount;
             }
         }
 

@@ -12,7 +12,7 @@ namespace Ex03.ConsoleUI
         private const string k_GetOwnerNameMsg = "Please insert the owner name:";
         private const string k_OptionOneMessageInMenu = "Insert a new vehicle in the garage.";
         private const string k_OptionTwoMessageInMenu = "Show all license numbers of vehcles in the garage (with filter option).";
-        private const string k_OptionThreeMessageInMenu = "Chage the state of a vehicle in the garage.";
+        private const string k_OptionThreeMessageInMenu = "Change the state of a vehicle in the garage.";
         private const string k_OptionFourMessageInMenu = "Fill the vehcle's wheels with air to maximum.";
         private const string k_OptionFiveMessageInMenu = "Fule a vehicle.";
         private const string k_OptionSixMessageInMenu = "Charge an electric vehicle.";
@@ -62,7 +62,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        public void printOptionMenu()
+        private void printOptionMenu()
         {
             Console.WriteLine(
                 String.Format("Welcome to the Garage Application, please select your action: \n" +
@@ -130,7 +130,6 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine(i_Message);
             string resultString = Console.ReadLine();
-
             if (resultString.Equals(""))
             {
                 throw new ArgumentException("Error ! input can't be an empty string!");
@@ -142,6 +141,7 @@ namespace Ex03.ConsoleUI
         private void printEnumTypesOptionMenu<T>()
         {
             int i = 1;
+
             foreach (string tType in Enum.GetNames(typeof(T)))
             {
                 Console.WriteLine(string.Format("{0}. {1}", i, tType));
@@ -184,7 +184,7 @@ namespace Ex03.ConsoleUI
             return input;
         }
 
-        public eVehicleState getValidVehicleStateFromUser()
+        private eVehicleState getValidVehicleStateFromUser()
         {
             eVehicleState? vehicleStateInput = null;
             bool isValidState = false;
@@ -231,6 +231,7 @@ namespace Ex03.ConsoleUI
         private void fillWheelsToMax()
         {
             string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
+
             try
             {
                 r_Garage.FillVehicleWheelsToMax(userLicenseNumber);
@@ -242,10 +243,15 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        
         private void insertVehicleToGarage()
         {
             string userLicenseNumber = getStringFromUser(k_LicenseNumberMessage);
+
+            while (!int.TryParse(userLicenseNumber, out int userLicenseNumberInt))
+            {
+                Console.WriteLine("Error! the input you supplied isn't valid make sure you enter a number");
+                userLicenseNumber = getStringFromUser(k_LicenseNumberMessage);
+            }
 
             if (r_Garage.CheckIfVehicleExist(userLicenseNumber))
             {
@@ -270,10 +276,11 @@ namespace Ex03.ConsoleUI
             Vehicle newVehicle = VehicleFactory.CreateNewVehicle(vehicleType, i_VehicleLicenseNumber, modelName, WheelsManufacturerName);
             bool isValidProperty = false;
             float currentEnergy, currentWheelsPresure;
+            List<string> extraMembers;
 
             while (!isValidProperty)
             {
-                List<string> extraMembers = getExtraPropertiesFromUser(newVehicle.ChildExtraProperties);
+                extraMembers = getExtraPropertiesFromUser(newVehicle.ChildExtraProperties);
                 try
                 {
                     currentEnergy = getCurrentEnergyInTheVehicleFromUser(newVehicle.EnergyContainerType);
@@ -425,6 +432,7 @@ namespace Ex03.ConsoleUI
         {
             string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
             Vehicle currentVehicle = r_Garage.GetTicket(userLicenseNumber).Vehicle;
+
             if (currentVehicle.EnergyContainerType == eEnergyContainerType.Fuel)
             {
                 eFuelType fuelType = getValidFuelTypeFromUser();
@@ -528,6 +536,7 @@ namespace Ex03.ConsoleUI
         {
             string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
             Vehicle currentVehicle = r_Garage.GetTicket(userLicenseNumber).Vehicle;
+            
             if (currentVehicle.EnergyContainerType == eEnergyContainerType.Electric)
             {
                 Console.WriteLine("Please insert duration in minutes to charge:");
