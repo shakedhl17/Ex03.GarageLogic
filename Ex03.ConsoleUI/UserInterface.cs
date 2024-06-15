@@ -164,7 +164,7 @@ namespace Ex03.ConsoleUI
             bool isLicenseNumberExist = false;
             string input = null;
 
-            while (!isInputValid && !isLicenseNumberExist)
+            while (!isInputValid || !isLicenseNumberExist)
             {
                 try
                 {
