@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
             {
                 throw new ValueOutOfRangeException(0, r_MaxEnergyAmount - m_CurrentEnergyAmount);
             }
-            else
+            else 
             {
                 m_CurrentEnergyAmount += i_energyAmount;
             }
