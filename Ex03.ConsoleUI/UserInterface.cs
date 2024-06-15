@@ -164,7 +164,7 @@ namespace Ex03.ConsoleUI
             bool isLicenseNumberExist = false;
             string input = null;
 
-            while (!isInputValid && !isLicenseNumberExist)
+            while (!isInputValid || !isLicenseNumberExist)
             {
                 try
                 {
@@ -267,8 +267,8 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                Console.WriteLine("It seems that the vehicle isn't exists in the garage. " +
-                    "Lets get all the details and enter your vehicle to the garage");
+                Console.WriteLine("It seems that the vehicle isn't exists in the garage. ");
+                Console.WriteLine("Lets get all the details and enter your vehicle to the garage");
                 insertNewVehicleToGarage(userLicenseNumber);
                 Console.WriteLine(string.Format("Vehicle {0} has been added to the garage!", userLicenseNumber));
             }
