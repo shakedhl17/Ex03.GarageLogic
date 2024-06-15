@@ -92,15 +92,15 @@ namespace Ex03.ConsoleUI
                     break;
 
                 case k_OptionFour:
-                    //fillWheelsToMax();
+                    fillWheelsToMax();
                     break;
 
                 case k_OptionFive:
-                    //fuelVehicle();
+                    fuelVehicle();
                     break;
 
                 case k_OptionSix:
-                    //chargeVehicle();
+                    chargeVehicle();
                     break;
 
                 case k_OptionSeven:
@@ -223,7 +223,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                throw new FormatException("Invalid input format");
+                throw new FormatException("Invalid input format, expected int input");
             }
 
             return (eVehicleState)(userChoise - 1);
@@ -304,6 +304,46 @@ namespace Ex03.ConsoleUI
                     Console.WriteLine(formatExeption.Message);
                 }
             }
+
+            // get Owner
+            Owner owner = getOwnerDetailsFromUser();
+            // Add to garage
+            r_Garage.InsertTicketDetails(i_VehicleLicenseNumber, owner, newVehicle);
+        }
+
+
+        private Owner getOwnerDetailsFromUser()
+        {
+            string ownerName = getStringFromUser(k_GetOwnerNameMsg);
+            string ownerPhoneNumber = null;
+            bool isValidPhoneNumber = false;
+
+            while (!isValidPhoneNumber)
+            {
+                try
+                {
+                    ownerPhoneNumber = getOwnerPhoneNumberFromUser();
+                    isValidPhoneNumber = true;
+                }
+                catch (FormatException formatExeption)
+                {
+                    Console.WriteLine(formatExeption.Message);
+                }
+            }
+
+            return new Owner(ownerName, ownerPhoneNumber);
+        }
+
+        private string getOwnerPhoneNumberFromUser()
+        {
+            Console.WriteLine("Please insert the owner phone number (digits only):");
+            string userInput = Console.ReadLine();
+            if (!uint.TryParse(userInput, out uint _))
+            {
+                throw new FormatException("Invalid input format, expected int input");
+            }
+
+            return userInput;
         }
 
         private List<string> getExtraPropertiesFromUser(List<string> i_ChildExtraProperties)
@@ -329,7 +369,7 @@ namespace Ex03.ConsoleUI
             currentEnergyAmountFromUserString = Console.ReadLine();
             if (!float.TryParse(currentEnergyAmountFromUserString, out currentEnergyAmountFromUser))
             {
-                throw new FormatException("Invalid input format");
+                throw new FormatException("Invalid input format, expected float input");
             }
 
             return currentEnergyAmountFromUser;
@@ -344,7 +384,7 @@ namespace Ex03.ConsoleUI
             currentAirPressureInputString = Console.ReadLine();
             if (!float.TryParse(currentAirPressureInputString, out currentWheelsPresureInput))
             {
-                throw new FormatException("Invalid input format");
+                throw new FormatException("Invalid input format, expected float input");
             }
 
             return currentWheelsPresureInput;
@@ -392,7 +432,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                throw new FormatException("Invalid input format");
+                throw new FormatException("Invalid input format, expected int input");
             }
 
             return (eVehicleType)vehicleTypeInput;
@@ -436,7 +476,7 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                throw new FormatException("Invalid input format");
+                throw new FormatException("Invalid input format, expected int input");
             }
 
             return (eFuelType)userChoise;
