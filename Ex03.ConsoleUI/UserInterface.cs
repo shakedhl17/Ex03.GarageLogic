@@ -439,7 +439,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("Please insert fuel amount:");
                 if (!float.TryParse(Console.ReadLine(), out float amount))
                 {
-                    throw new FormatException("Invalid Format Input!");
+                    throw new FormatException("Invalid Format Input! expected float input");
                 }
 
                 r_Garage.GetTicket(userLicenseNumber).Vehicle.AddEnergy(amount, fuelType);
@@ -542,7 +542,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("Please insert duration in minutes to charge:");
                 if (!float.TryParse(Console.ReadLine(), out float amount))
                 {
-                    throw new FormatException("Invalid Format Input!");
+                    throw new FormatException("Invalid Format Input! expected float input");
                 }
 
                 amount = amount / 60;
