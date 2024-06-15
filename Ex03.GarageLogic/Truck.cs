@@ -34,11 +34,11 @@ namespace Ex03.GarageLogic
             
             if(!parseCargoVolume)
             {
-                throw new FormatException(string.Format("Invalid Input Format for cargo volume"));
+                throw new FormatException(string.Format("Error! Cargo Volum format is not valid, expected float."));
             }
             if (!parseDangerousCargo)
             {
-                throw new FormatException(string.Format("Invalid Input Format for if cargo is dangerous"));
+                throw new FormatException(string.Format("Error! Dangerous Cargo format is not valid, expected true/false."));
             }
         }
 

@@ -61,11 +61,12 @@ namespace Ex03.GarageLogic
                 Enum.TryParse<eCarColor>(i_ChildExtraProperties[k_CarColorIndex], out m_CarColor);
             bool parseCarDoors = Enum.TryParse<eNumOfCarDoors>(i_ChildExtraProperties[k_NumOfCarDoorsIndex], out m_NumOfDoors);
             
-            if (!(parseCarColor && parseCarDoors))
+            if (!parseCarColor)
             {
-                throw new FormatException(string.Format("Invalid Input Format"));
+                throw new FormatException(string.Format("Error! Car Color format is invalid."));
             }
-            else if (!parseCarDoors)
+
+            if (!parseCarDoors)
             {
                 throw new ValueOutOfRangeException(k_MinNumOfDoors, k_MaxNumOfDoors, $"Error ! the number of doors should be between {k_MinNumOfDoors} to {k_MaxNumOfDoors}");
             }

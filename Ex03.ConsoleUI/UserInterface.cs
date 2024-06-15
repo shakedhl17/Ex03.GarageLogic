@@ -235,7 +235,7 @@ namespace Ex03.ConsoleUI
             try
             {
                 r_Garage.FillVehicleWheelsToMax(userLicenseNumber);
-                Console.WriteLine(string.Format("Pumped wheels to max for Vehicle with license number: {0}", userLicenseNumber));
+                Console.WriteLine(string.Format("Filled wheels to max for Vehicle with license number: {0}", userLicenseNumber));
             }
             catch (ArgumentException argException)
             {
@@ -353,7 +353,7 @@ namespace Ex03.ConsoleUI
             foreach (string property in i_ChildExtraProperties)
             {
                 Console.WriteLine(string.Format("Please enter {0}:", property));
-                Console.WriteLine(string.Format("Note that its case sensitive"));
+                Console.WriteLine(string.Format("Note: Input is case sensitive"));
                 userInputList.Add(Console.ReadLine());
             }
 
