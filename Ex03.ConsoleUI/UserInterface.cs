@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
@@ -308,7 +307,6 @@ namespace Ex03.ConsoleUI
             Owner owner = getOwnerDetailsFromUser();
             r_Garage.InsertTicketDetails(i_VehicleLicenseNumber, owner, newVehicle);
         }
-
 
         private Owner getOwnerDetailsFromUser()
         {

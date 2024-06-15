@@ -39,8 +39,8 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             string resultString = r_Owner.ToString();
-            resultString += Environment.NewLine + r_Vehicle.ToString();
-            resultString += Environment.NewLine + string.Format("State in the garage: {0}", Enum.GetName(typeof(eVehicleState), m_VechicleState));
+            resultString += Environment.NewLine + Environment.NewLine + r_Vehicle.ToString();
+            resultString += Environment.NewLine + Environment.NewLine + string.Format("State in the garage: {0}", Enum.GetName(typeof(eVehicleState), m_VechicleState));
 
             return resultString;
         }
