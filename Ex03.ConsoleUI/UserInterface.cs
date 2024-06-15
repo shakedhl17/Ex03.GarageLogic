@@ -305,9 +305,7 @@ namespace Ex03.ConsoleUI
                 }
             }
 
-            // get Owner
             Owner owner = getOwnerDetailsFromUser();
-            // Add to garage
             r_Garage.InsertTicketDetails(i_VehicleLicenseNumber, owner, newVehicle);
         }
 
