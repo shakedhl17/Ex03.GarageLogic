@@ -13,7 +13,7 @@ namespace Ex03.ConsoleUI
         private const string k_GetOwnerNameMsg = "Please insert the owner name:";
         private const string k_OptionOneMessageInMenu = "Insert a new vehicle in the garage.";
         private const string k_OptionTwoMessageInMenu = "Show all license numbers of vehcles in the garage (with filter option).";
-        private const string k_OptionThreeMessageInMenu = "Chage the state of a vehicle in the garage.";
+        private const string k_OptionThreeMessageInMenu = "Change the state of a vehicle in the garage.";
         private const string k_OptionFourMessageInMenu = "Fill the vehcle's wheels with air to maximum.";
         private const string k_OptionFiveMessageInMenu = "Fule a vehicle.";
         private const string k_OptionSixMessageInMenu = "Charge an electric vehicle.";
@@ -243,10 +243,15 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        
         private void insertVehicleToGarage()
         {
             string userLicenseNumber = getStringFromUser(k_LicenseNumberMessage);
+
+            while (!int.TryParse(userLicenseNumber, out int userLicenseNumberInt))
+            {
+                Console.WriteLine("Error! the input you supplied isn't valid make sure you enter a number");
+                userLicenseNumber = getStringFromUser(k_LicenseNumberMessage);
+            }
 
             if (r_Garage.CheckIfVehicleExist(userLicenseNumber))
             {
