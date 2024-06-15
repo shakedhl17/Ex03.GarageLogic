@@ -54,8 +54,8 @@ namespace Ex03.GarageLogic
         {
             const int k_CarColorIndex = 0;
             const int k_NumOfCarDoorsIndex = 1;
-            const int k_MinNumOfDoors = 2;
-            const int k_MaxNumOfDoors = 5;
+            const int k_MinimumNumOfDoors = 2;
+            const int k_MaximumNumOfDoors = 5;
 
             bool parseCarColor = !int.TryParse(i_ChildExtraProperties[k_CarColorIndex], out _) &&
                 Enum.TryParse<eCarColor>(i_ChildExtraProperties[k_CarColorIndex], out m_CarColor);
@@ -68,7 +68,7 @@ namespace Ex03.GarageLogic
 
             if (!parseCarDoors)
             {
-                throw new ValueOutOfRangeException(k_MinNumOfDoors, k_MaxNumOfDoors, $"Error ! the number of doors should be between {k_MinNumOfDoors} to {k_MaxNumOfDoors}");
+                throw new ValueOutOfRangeException(k_MinimumNumOfDoors, k_MaximumNumOfDoors, $"Error ! the number of doors should be between {k_MinimumNumOfDoors} to {k_MaximumNumOfDoors}");
             }
         }
 

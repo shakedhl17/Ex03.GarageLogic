@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
@@ -63,7 +62,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        public void printOptionMenu()
+        private void printOptionMenu()
         {
             Console.WriteLine(
                 String.Format("Welcome to the Garage Application, please select your action: \n" +
@@ -131,7 +130,6 @@ namespace Ex03.ConsoleUI
         {
             Console.WriteLine(i_Message);
             string resultString = Console.ReadLine();
-
             if (resultString.Equals(""))
             {
                 throw new ArgumentException("Error ! input can't be an empty string!");
@@ -143,6 +141,7 @@ namespace Ex03.ConsoleUI
         private void printEnumTypesOptionMenu<T>()
         {
             int i = 1;
+
             foreach (string tType in Enum.GetNames(typeof(T)))
             {
                 Console.WriteLine(string.Format("{0}. {1}", i, tType));
@@ -185,7 +184,7 @@ namespace Ex03.ConsoleUI
             return input;
         }
 
-        public eVehicleState getValidVehicleStateFromUser()
+        private eVehicleState getValidVehicleStateFromUser()
         {
             eVehicleState? vehicleStateInput = null;
             bool isValidState = false;
@@ -232,6 +231,7 @@ namespace Ex03.ConsoleUI
         private void fillWheelsToMax()
         {
             string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
+
             try
             {
                 r_Garage.FillVehicleWheelsToMax(userLicenseNumber);
@@ -276,10 +276,11 @@ namespace Ex03.ConsoleUI
             Vehicle newVehicle = VehicleFactory.CreateNewVehicle(vehicleType, i_VehicleLicenseNumber, modelName, WheelsManufacturerName);
             bool isValidProperty = false;
             float currentEnergy, currentWheelsPresure;
+            List<string> extraMembers;
 
             while (!isValidProperty)
             {
-                List<string> extraMembers = getExtraPropertiesFromUser(newVehicle.ChildExtraProperties);
+                extraMembers = getExtraPropertiesFromUser(newVehicle.ChildExtraProperties);
                 try
                 {
                     currentEnergy = getCurrentEnergyInTheVehicleFromUser(newVehicle.EnergyContainerType);
@@ -297,9 +298,7 @@ namespace Ex03.ConsoleUI
                 }
             }
 
-            // get Owner
             Owner owner = getOwnerDetailsFromUser();
-            // Add to garage
             r_Garage.InsertTicketDetails(i_VehicleLicenseNumber, owner, newVehicle);
         }
 
@@ -433,6 +432,7 @@ namespace Ex03.ConsoleUI
         {
             string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
             Vehicle currentVehicle = r_Garage.GetTicket(userLicenseNumber).Vehicle;
+
             if (currentVehicle.EnergyContainerType == eEnergyContainerType.Fuel)
             {
                 eFuelType fuelType = getValidFuelTypeFromUser();
@@ -536,6 +536,7 @@ namespace Ex03.ConsoleUI
         {
             string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
             Vehicle currentVehicle = r_Garage.GetTicket(userLicenseNumber).Vehicle;
+            
             if (currentVehicle.EnergyContainerType == eEnergyContainerType.Electric)
             {
                 Console.WriteLine("Please insert duration in minutes to charge:");

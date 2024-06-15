@@ -13,9 +13,9 @@ namespace Ex03.GarageLogic
 
         public override void AddEnergy(float i_energyAmount, eFuelType? i_FuelTypeToAdd = null)
         {
-            if (i_energyAmount < 0 || m_CurrentEnergyAmount + i_energyAmount > r_MaxEnergyAmount || !IsFuelMatching(i_FuelTypeToAdd))
+            if (i_energyAmount < 0 || m_CurrentEnergyAmount + i_energyAmount > r_MaximumEnergyAmount || !IsFuelMatching(i_FuelTypeToAdd))
             {
-                throw new ValueOutOfRangeException(0, r_MaxEnergyAmount - m_CurrentEnergyAmount);
+                throw new ValueOutOfRangeException(0, r_MaximumEnergyAmount - m_CurrentEnergyAmount);
             }
             else
             {
@@ -25,7 +25,7 @@ namespace Ex03.GarageLogic
 
         public bool IsFuelMatching(eFuelType? i_FuelType = null)
         {
-            bool isMatching = i_FuelType == r_FuelType;
+            bool isMatching = i_FuelType == r_FuelType ? true : false;
 
             if (!isMatching)
             {

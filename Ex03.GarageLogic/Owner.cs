@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
     public class Owner
     {
@@ -22,6 +20,7 @@ namespace Ex03.GarageLogic
             r_Name = i_Name;
             r_PhoneNumber = i_PhoneNumber;
         }
+
         public override string ToString()
         {
             return string.Format("Owner name: {0}\nOwner phone: {1}", r_Name, r_PhoneNumber);
