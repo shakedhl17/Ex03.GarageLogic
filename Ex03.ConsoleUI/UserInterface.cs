@@ -243,20 +243,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void fuelVehicle()
-        {
-            string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
-            eFuelType fuelType = getValidFuelTypeFromUser();
-            Console.WriteLine("Please insert fuel amount:");
-            if (!float.TryParse(Console.ReadLine(), out float amount))
-            {
-                throw new FormatException("Invalid Format Input!");
-            }
-
-            r_Garage.GetTicket(userLicenseNumber).Vehicle.AddEnergy(amount, fuelType);
-            Console.WriteLine(string.Format("Added {0} liters of {1} to vheicle: {2}", amount, Enum.GetName(typeof(eFuelType), fuelType), userLicenseNumber));
-        }
-      
+        
         private void insertVehicleToGarage()
         {
             string userLicenseNumber = getStringFromUser(k_LicenseNumberMessage);
@@ -310,7 +297,6 @@ namespace Ex03.ConsoleUI
             // Add to garage
             r_Garage.InsertTicketDetails(i_VehicleLicenseNumber, owner, newVehicle);
         }
-
 
         private Owner getOwnerDetailsFromUser()
         {
@@ -438,6 +424,28 @@ namespace Ex03.ConsoleUI
             return (eVehicleType)vehicleTypeInput;
         }
 
+        private void fuelVehicle()
+        {
+            string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
+            Vehicle currentVehicle = r_Garage.GetTicket(userLicenseNumber).Vehicle;
+            if (currentVehicle.EnergyContainerType == eEnergyContainerType.Fuel)
+            {
+                eFuelType fuelType = getValidFuelTypeFromUser();
+                Console.WriteLine("Please insert fuel amount:");
+                if (!float.TryParse(Console.ReadLine(), out float amount))
+                {
+                    throw new FormatException("Invalid Format Input!");
+                }
+
+                r_Garage.GetTicket(userLicenseNumber).Vehicle.AddEnergy(amount, fuelType);
+                Console.WriteLine(string.Format("Added {0} liters of {1} to vheicle: {2}", amount, Enum.GetName(typeof(eFuelType), fuelType), userLicenseNumber));
+            }
+            else
+            {
+                throw new ArgumentException("Can't fuel an electric vehicle");
+            }
+        }
+
         private eFuelType getValidFuelTypeFromUser()
         {
             eFuelType? fuelTypeInput = null;
@@ -522,16 +530,23 @@ namespace Ex03.ConsoleUI
         private void chargeVehicle()
         {
             string userLicenseNumber = getValidLicenseNumberFromUser(k_LicenseNumberMessage);
-
-            Console.WriteLine("Please insert duration in minutes to charge:");
-            if (!float.TryParse(Console.ReadLine(), out float amount))
+            Vehicle currentVehicle = r_Garage.GetTicket(userLicenseNumber).Vehicle;
+            if (currentVehicle.EnergyContainerType == eEnergyContainerType.Electric)
             {
-                throw new FormatException("Invalid Format Input!");
-            }
+                Console.WriteLine("Please insert duration in minutes to charge:");
+                if (!float.TryParse(Console.ReadLine(), out float amount))
+                {
+                    throw new FormatException("Invalid Format Input!");
+                }
 
-            amount = amount / 60;
-            r_Garage.GetTicket(userLicenseNumber).Vehicle.AddEnergy(amount);
-            Console.WriteLine(string.Format("Vehicle {0} was charged with {1} hours", userLicenseNumber, amount));
+                amount = amount / 60;
+                r_Garage.GetTicket(userLicenseNumber).Vehicle.AddEnergy(amount);
+                Console.WriteLine(string.Format("Vehicle {0} was charged with {1} hours", userLicenseNumber, amount));
+            }
+            else
+            {
+                throw new ArgumentException("Can't charge a gas based vehicle");
+            }
         }
 
         private void printVehicleTicketDetails()
