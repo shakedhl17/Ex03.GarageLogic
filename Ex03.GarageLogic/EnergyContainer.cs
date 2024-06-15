@@ -42,7 +42,7 @@
         public override string ToString()
         {
             return string.Format(
-$@"Max energy amount: {r_MaxEnergyAmount}
+$@"Max energy amount: {r_MaximumEnergyAmount}
 Current energy amount: {m_CurrentEnergyAmount}");
         }
     }
